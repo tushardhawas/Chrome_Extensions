@@ -1,0 +1,19 @@
+{
+  "name": "Personalized News Aggregator",
+  "manifest_version": 3,
+  "version": "1",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab", "storage", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": ["https://api.thenewsapi.com/*"]
+}
