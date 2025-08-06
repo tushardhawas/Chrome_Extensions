@@ -3,7 +3,7 @@
     "name": "Smart Tab Prioritizer",
     "version": "1.1",
     "description": "Automatically arranges tabs based on importance and pauses media when switching tabs.",
-    "permissions": ["tabs", "activeTab", "scripting","storage"],
+    "permissions": ["tabs", "activeTab", "scripting","storage","alarms"],
     "background": {
       "service_worker": "background.js"
     },

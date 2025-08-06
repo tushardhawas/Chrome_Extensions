@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Popup</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .start { background: #4CAF50; color: white; }
+        .stop { background: #f44336; color: white; }
+        .info { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h3>🎯 Element Selector Debug</h3>
+    
+    <div class="info">
+        <strong>Status:</strong> <span id="status">Ready</span>
+    </div>
+    
+    <button id="startBtn" class="start">Start Picking</button>
+    <button id="stopBtn" class="stop">Stop Picking</button>
+    
+    <div id="results" class="info" style="display: none;">
+        <strong>Last Selected:</strong>
+        <div id="selectorInfo"></div>
+    </div>
+
+    <script>
+        let isActive = false;
+        let currentTabId = null;
+
+        // Get current tab
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            currentTabId = tabs[0].id;
+            document.getElementById('status').textContent = `Ready (Tab: ${currentTabId})`;
+        });
+
+        // Listen for messages from content script
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (message.type === 'UG_ELEMENT_SELECTED') {
+                document.getElementById('results').style.display = 'block';
+                document.getElementById('selectorInfo').innerHTML = `
+                    <strong>Element:</strong> ${message.elementInfo?.tagName || 'unknown'}<br>
+                    <strong>CSS:</strong> ${message.css || 'none'}<br>
+                    <strong>XPath:</strong> ${message.xpath || 'none'}
+                `;
+            }
+        });
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            if (!currentTabId) return;
+            
+            isActive = true;
+            document.getElementById('status').textContent = 'Picking Active';
+            
+            chrome.tabs.sendMessage(currentTabId, { type: 'UG_START_PICK' }, (response) => {
+                console.log('Start response:', response);
+            });
+        });
+
+        document.getElementById('stopBtn').addEventListener('click', () => {
+            if (!currentTabId) return;
+            
+            isActive = false;
+            document.getElementById('status').textContent = 'Ready';
+            
+            chrome.tabs.sendMessage(currentTabId, { type: 'UG_STOP_PICK' }, (response) => {
+                console.log('Stop response:', response);
+            });
+        });
+    </script>
+</body>
+</html>

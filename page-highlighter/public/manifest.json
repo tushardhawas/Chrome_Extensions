@@ -1,25 +1,29 @@
 {
-    "manifest_version": 3,
-    "name": "Page Highlighter",
-    "version": "1.0",
-    "action": {
-      "default_popup": "index.html"
-    },
-    "permissions": [
-      "activeTab",
-      "storage",
-      "scripting" 
-    ],
-    "content_scripts": [ {
-        "matches": ["<all_urls>"], 
-        "js": ["content.js"],      
-        "run_at": "document_idle" 
-      }
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "host_permissions": [ 
-      "<all_urls>" 
-    ]
-  }
+  "manifest_version": 3,
+  "name": "UserGuiding-lite",
+  "version": "0.1.0",
+  "description": "Element picker + tooltip",
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_title": "Picker"
+  },
+  "icons": {
+    "48": "icons/icon48.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

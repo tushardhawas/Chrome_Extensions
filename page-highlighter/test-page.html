@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page for Robust Element Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .primary { background: #007bff; color: white; }
+        .secondary { background: #6c757d; color: white; }
+        .success { background: #28a745; color: white; }
+        .warning { background: #ffc107; color: black; }
+        .danger { background: #dc3545; color: white; }
+        
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+        }
+        
+        .nav-menu {
+            background: #333;
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .nav-menu li {
+            margin: 0 15px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 4px;
+        }
+        .nav-menu a:hover {
+            background: #555;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .dynamic-content {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .css-12345 { color: #e74c3c; }
+        .jsx-67890 { font-style: italic; }
+        ._private123 { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="main-title">🎯 Robust Element Selector Test Page</h1>
+        <p class="subtitle">This page contains various elements to test the selector generation capabilities</p>
+    </header>
+
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#home" data-testid="nav-home">Home</a></li>
+            <li><a href="#about" data-test="nav-about">About</a></li>
+            <li><a href="#services" data-qa="nav-services">Services</a></li>
+            <li><a href="#contact" aria-label="Contact Us">Contact</a></li>
+            <li><a href="#blog" role="menuitem">Blog</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="container">
+            <h2>🔘 Button Examples</h2>
+            <div class="button-group">
+                <button id="save-btn" class="primary">Save Document</button>
+                <button data-testid="cancel-button" class="secondary">Cancel</button>
+                <button data-test="submit-form" class="success">Submit Form</button>
+                <button aria-label="Delete item" class="danger">Delete</button>
+                <button class="warning css-12345 jsx-67890">Dynamic Classes</button>
+                
+                <!-- Modern UI Library Examples -->
+                <button class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90" data-radix-collection-item>
+                    Radix Button
+                </button>
+                
+                <button class="inline-flex h-10 items-center justify-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-slate-50 ring-offset-white transition-colors hover:bg-slate-900/90" data-state="closed">
+                    shadcn/ui Button
+                </button>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>📝 Form Elements</h2>
+            <form id="test-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" data-testid="username-input" placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" data-qa="email-field" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <select id="country" name="country" data-test="country-select">
+                        <option value="">Select Country</option>
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" aria-label="Your message"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <input type="checkbox" id="newsletter" name="newsletter" data-testid="newsletter-checkbox">
+                    <label for="newsletter">Subscribe to newsletter</label>
+                </div>
+            </form>
+        </section>
+
+        <section class="container">
+            <h2>🃏 Card Components</h2>
+            <div class="card" data-testid="product-card-1">
+                <h3>Product 1</h3>
+                <p>This is a sample product description with some text content.</p>
+                <button class="primary">Buy Now</button>
+            </div>
+            
+            <div class="card" data-qa="product-card-2">
+                <h3>Product 2</h3>
+                <p>Another product with different attributes for testing.</p>
+                <button class="success">Add to Cart</button>
+            </div>
+            
+            <div class="card">
+                <h3>Product 3</h3>
+                <p>This card has no data attributes - testing fallback selectors.</p>
+                <button class="warning _private123">View Details</button>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>📊 Table Data</h2>
+            <div class="table-container">
+                <table data-testid="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-user-id="1">
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td>john@example.com</td>
+                            <td>
+                                <button class="primary" data-action="edit" data-user="1">Edit</button>
+                                <button class="danger" data-action="delete" data-user="1">Delete</button>
+                            </td>
+                        </tr>
+                        <tr data-user-id="2">
+                            <td>2</td>
+                            <td>Jane Smith</td>
+                            <td>jane@example.com</td>
+                            <td>
+                                <button class="primary" data-action="edit" data-user="2">Edit</button>
+                                <button class="danger" data-action="delete" data-user="2">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="dynamic-content">
+            <h2>🌟 Dynamic Content & Modern UI</h2>
+            <p>This section has dynamic styling and framework-generated classes.</p>
+            <div class="css-abc123 jsx-456789 _ngcontent-c0">
+                <span data-react-id="123">React Component</span>
+                <span data-v-hash="xyz789">Vue Component</span>
+                <span ng-bind="value">Angular Component</span>
+            </div>
+            
+            <!-- Radix UI Examples -->
+            <div class="radix-examples" style="margin: 20px 0;">
+                <h3>Radix UI Components</h3>
+                <div data-radix-collection-item data-state="open" role="button" tabindex="0">
+                    Radix Collapsible Item
+                </div>
+                <div data-radix-scroll-area-viewport data-orientation="vertical">
+                    Radix Scroll Area
+                </div>
+                <select data-radix-collection-item role="combobox" aria-expanded="false">
+                    <option>Radix Select Option</option>
+                </select>
+            </div>
+            
+            <!-- shadcn/ui Examples -->
+            <div class="shadcn-examples" style="margin: 20px 0;">
+                <h3>shadcn/ui Components</h3>
+                <input class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background" placeholder="shadcn Input" />
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <h3 class="text-2xl font-semibold leading-none tracking-tight">shadcn Card</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>🎯 Text-based Selection</h2>
+            <div>
+                <p>Click on this paragraph to test text-based selectors.</p>
+                <span>This is a span with unique text content.</span>
+                <div>
+                    <button>Generic Button 1</button>
+                    <button>Generic Button 2</button>
+                    <button>Unique Button Text</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>🔗 Links and Media</h2>
+            <div>
+                <a href="https://example.com" data-testid="external-link">External Link</a>
+                <a href="/internal" title="Internal Page">Internal Link</a>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzMzNyIvPjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkltYWdlPC90ZXh0Pjwvc3ZnPg==" alt="Sample Image" data-qa="sample-image">
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 Robust Element Selector Test. All rights reserved.</p>
+        <div>
+            <button data-testid="footer-contact">Contact Support</button>
+            <button aria-label="Go to top">Back to Top</button>
+        </div>
+    </footer>
+
+    <script>
+        // Add some dynamic behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to demonstrate functionality
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log('Button clicked:', e.target.textContent);
+                });
+            });
+
+            // Simulate dynamic content changes
+            setTimeout(() => {
+                const dynamicDiv = document.createElement('div');
+                dynamicDiv.innerHTML = '<p data-dynamic="true">This content was added dynamically!</p>';
+                document.querySelector('.dynamic-content').appendChild(dynamicDiv);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

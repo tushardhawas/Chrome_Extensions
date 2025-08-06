@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           });
   
           let index = 0;
-  
+          importantTabs.sort((a, b) => getDomain(a.url).localeCompare(getDomain(b.url)));
           importantTabs.forEach((tab) => {
             chrome.tabs.move(tab.id, { index: index }, () => {
               if (chrome.runtime.lastError) {
@@ -54,10 +54,39 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   
           console.log("Sorting complete.");
           
-          // ✅ Send success message to frontend
           chrome.runtime.sendMessage({ type: "sort_complete" });
         });
       });
     }
   });
+  
+
+  // chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  //   if (request.type === "sort_tabs") {
+  //     chrome.tabs.query({}, (tabs) => {
+  //       const getDomain = (url) => {
+  //         try {
+  //           return new URL(url).hostname.replace(/^www\./, "");
+  //         } catch (e) {
+  //           return "";
+  //         }
+  //       };
+  
+  //       tabs.sort((a, b) => getDomain(a.url).localeCompare(getDomain(b.url)));
+  
+  //       let index = 0;
+  //       tabs.forEach((tab) => {
+  //         chrome.tabs.move(tab.id, { index: index }, () => {
+  //           if (chrome.runtime.lastError) {
+  //             console.error("Error moving tab:", chrome.runtime.lastError);
+  //           }
+  //         });
+  //         index++;
+  //       });
+  
+  //       console.log("Tabs sorted alphabetically by domain.");
+  //       chrome.runtime.sendMessage({ type: "sort_complete" });
+  //     });
+  //   }
+  // });
   

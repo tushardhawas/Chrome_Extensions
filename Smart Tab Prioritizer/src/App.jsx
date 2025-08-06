@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Toaster, toast } from "sonner"; // ✅ Import Sonner
+import { Toaster, toast } from "sonner";
 
 const App = () => {
   const [prioritySites, setPrioritySites] = useState("");
@@ -11,9 +11,8 @@ const App = () => {
         setPrioritySites(data.prioritySites.join(", "));
       } else {
         const defaultSites = [
-          "github.com",
-          "docs.google.com",
-          "stackoverflow.com",
+         
+          "empty"
         ];
         chrome.storage.sync.set({ prioritySites: defaultSites }, () => {
           setPrioritySites(defaultSites.join(", "));
@@ -58,20 +57,18 @@ const App = () => {
         placeholder="Enter priority sites, comma separated"
       />
       <div className="flex gap-1.5">
-        <button
+        {/* <button
           onClick={savePreferences}
           className="mt-2 px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-700 transition-all"
         >
           Save Preferences
-        </button>
+        </button> */}
         <button
           onClick={() => chrome.runtime.sendMessage({ type: "sort_tabs" })}
           className={`mt-2 px-4 py-2 rounded-lg transition-all ${
-            prioritySites.trim() !== ""
-              ? "bg-green-500 hover:bg-green-700"
-              : "bg-gray-500 cursor-not-allowed"
+               "bg-green-500 hover:bg-green-700"
+              
           }`}
-          disabled={prioritySites.trim() === ""}
         >
           Sort My Tabs
         </button>
